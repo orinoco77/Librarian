@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="server"
+        android:title="@string/server"
+        android:defaultValue="192.168.100.102"
+        android:selectAllOnFocus="true"
+        android:inputType="textNoSuggestions"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+    <EditTextPreference
+        android:key="port"
+        android:title="@string/port"
+        android:defaultValue="8282"
+        android:selectAllOnFocus="true"
+        android:inputType="number"
+        android:capitalize="none"
+        android:singleLine="true"
+        android:maxLines="1" />
+
+</PreferenceScreen>

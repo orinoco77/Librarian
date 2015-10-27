@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Librarian</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="server">Server</string>
+    <string name="port">Port</string>
 </resources>
