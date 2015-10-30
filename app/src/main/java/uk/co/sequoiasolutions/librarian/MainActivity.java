@@ -1,4 +1,5 @@
 package uk.co.sequoiasolutions.librarian;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DownloadManager;
@@ -35,6 +36,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -57,9 +62,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -81,14 +88,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); //Just a listView, shown below
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        port = sharedPref.getString("port","");
+        port = sharedPref.getString("port", "");
         if (port.equals(""))
             port = "8282";
-        server = sharedPref.getString("server","");
+        server = sharedPref.getString("server", "");
         if (server.equals(""))
-            server="192.168.100.102";
-        baseUrl = "http://" + server + ":" + port +"/";
-        TextView search = (TextView)findViewById(R.id.editText);
+            server = "192.168.100.102";
+        baseUrl = "http://" + server + ":" + port + "/";
+        TextView search = (TextView) findViewById(R.id.editText);
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                                              @Override
                                              public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -101,182 +108,182 @@ public class MainActivity extends Activity {
                                              }
                                          }
         );
-        Button buttonA = (Button)findViewById(R.id.buttonA);
+        Button buttonA = (Button) findViewById(R.id.buttonA);
         buttonA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=A", "Author");
             }
         });
-        Button buttonB = (Button)findViewById(R.id.buttonB);
+        Button buttonB = (Button) findViewById(R.id.buttonB);
         buttonB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=B", "Author");
             }
         });
-        Button buttonC = (Button)findViewById(R.id.buttonC);
+        Button buttonC = (Button) findViewById(R.id.buttonC);
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=C", "Author");
             }
         });
-        Button buttonD = (Button)findViewById(R.id.buttonD);
+        Button buttonD = (Button) findViewById(R.id.buttonD);
         buttonD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=D", "Author");
             }
         });
-        Button buttonE = (Button)findViewById(R.id.buttonE);
+        Button buttonE = (Button) findViewById(R.id.buttonE);
         buttonE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=E", "Author");
             }
         });
-        Button buttonF = (Button)findViewById(R.id.buttonF);
+        Button buttonF = (Button) findViewById(R.id.buttonF);
         buttonF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=F", "Author");
             }
         });
-        Button buttonG = (Button)findViewById(R.id.buttonG);
+        Button buttonG = (Button) findViewById(R.id.buttonG);
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=G", "Author");
             }
         });
-        Button buttonH = (Button)findViewById(R.id.buttonH);
+        Button buttonH = (Button) findViewById(R.id.buttonH);
         buttonH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=H", "Author");
             }
         });
-        Button buttonI = (Button)findViewById(R.id.buttonI);
+        Button buttonI = (Button) findViewById(R.id.buttonI);
         buttonI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=I", "Author");
             }
         });
-        Button buttonJ = (Button)findViewById(R.id.buttonJ);
+        Button buttonJ = (Button) findViewById(R.id.buttonJ);
         buttonJ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=J", "Author");
             }
         });
-        Button buttonK = (Button)findViewById(R.id.buttonK);
+        Button buttonK = (Button) findViewById(R.id.buttonK);
         buttonK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=K", "Author");
             }
         });
-        Button buttonL = (Button)findViewById(R.id.buttonL);
+        Button buttonL = (Button) findViewById(R.id.buttonL);
         buttonL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=L", "Author");
             }
         });
-        Button buttonM = (Button)findViewById(R.id.buttonM);
+        Button buttonM = (Button) findViewById(R.id.buttonM);
         buttonM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=M", "Author");
             }
         });
-        Button buttonN = (Button)findViewById(R.id.buttonN);
+        Button buttonN = (Button) findViewById(R.id.buttonN);
         buttonN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=N", "Author");
             }
         });
-        Button buttonO = (Button)findViewById(R.id.buttonO);
+        Button buttonO = (Button) findViewById(R.id.buttonO);
         buttonO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=O", "Author");
             }
         });
-        Button buttonP = (Button)findViewById(R.id.buttonP);
+        Button buttonP = (Button) findViewById(R.id.buttonP);
         buttonP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=P", "Author");
             }
         });
-        Button buttonQ = (Button)findViewById(R.id.buttonQ);
+        Button buttonQ = (Button) findViewById(R.id.buttonQ);
         buttonQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=Q", "Author");
             }
         });
-        Button buttonR = (Button)findViewById(R.id.buttonR);
+        Button buttonR = (Button) findViewById(R.id.buttonR);
         buttonR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=R", "Author");
             }
         });
-        Button buttonS = (Button)findViewById(R.id.buttonS);
+        Button buttonS = (Button) findViewById(R.id.buttonS);
         buttonS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=S", "Author");
             }
         });
-        Button buttonT = (Button)findViewById(R.id.buttonT);
+        Button buttonT = (Button) findViewById(R.id.buttonT);
         buttonT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=T", "Author");
             }
         });
-        Button buttonU = (Button)findViewById(R.id.buttonU);
+        Button buttonU = (Button) findViewById(R.id.buttonU);
         buttonU.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=U", "Author");
             }
         });
-        Button buttonV = (Button)findViewById(R.id.buttonV);
+        Button buttonV = (Button) findViewById(R.id.buttonV);
         buttonV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=V", "Author");
             }
         });
-        Button buttonW = (Button)findViewById(R.id.buttonW);
+        Button buttonW = (Button) findViewById(R.id.buttonW);
         buttonW.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=W", "Author");
             }
         });
-        Button buttonX = (Button)findViewById(R.id.buttonX);
+        Button buttonX = (Button) findViewById(R.id.buttonX);
         buttonX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=X", "Author");
             }
         });
-        Button buttonY = (Button)findViewById(R.id.buttonY);
+        Button buttonY = (Button) findViewById(R.id.buttonY);
         buttonY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JsonReadTask().execute(baseUrl + "?getauthors=Y", "Author");
             }
         });
-        Button buttonZ = (Button)findViewById(R.id.buttonZ);
+        Button buttonZ = (Button) findViewById(R.id.buttonZ);
         buttonZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,12 +296,11 @@ public class MainActivity extends Activity {
                                     int position, long id) {
                 if (listView.getItemAtPosition(position) instanceof Ebook) {
                     Ebook ebook = (Ebook) listView.getItemAtPosition(position);
-                    new DownloadFileFromURL().execute(baseUrl + ebook.getId(), ebook.getEbookUrl());
+                    new DownloadFileFromURL().execute(baseUrl + ebook.Id, ebook.EbookUrl);
 
 
-                }
-                else if (listView.getItemAtPosition(position) instanceof Author) {
-                    long authorId=((Author) listView.getItemAtPosition(position)).get_id();
+                } else if (listView.getItemAtPosition(position) instanceof Author) {
+                    long authorId = ((Author) listView.getItemAtPosition(position)).Id;
                     new JsonReadTask().execute(baseUrl + "?getauthorbooks=" + authorId, "Ebook");
                 }
             }
@@ -310,13 +316,14 @@ public class MainActivity extends Activity {
 
     /**
      * Background Async Task to download file
-     * */
+     */
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
-        private String downloadedFile="";
+        private String downloadedFile = "";
+
         /**
          * Before starting background thread Show Progress Bar Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -329,9 +336,10 @@ public class MainActivity extends Activity {
             intent.setDataAndType(Uri.fromFile(new File(downloadedFile)), "application/epub+zip");
             startActivity(intent);
         }
+
         /**
          * Downloading file in background thread
-         * */
+         */
         @Override
         protected String doInBackground(String... f_url) {
             int count;
@@ -345,7 +353,7 @@ public class MainActivity extends Activity {
                 InputStream input = new BufferedInputStream(url.openStream(),
                         8192);
 
-                downloadedFile=Environment
+                downloadedFile = Environment
                         .getExternalStorageDirectory().toString()
                         + "/" + new File(f_url[1]).getName();
                 // Output stream
@@ -376,7 +384,6 @@ public class MainActivity extends Activity {
 
             return "success";
         }
-
 
 
     }
@@ -485,11 +492,17 @@ public class MainActivity extends Activity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
+            Picasso.with(MainActivity.this).load(baseUrl + "?getCover=" + stocks[position].ImageData).placeholder(R.drawable.placeholder).into(holder.image);
+            holder.title.setText(stocks[position].Title);
+            String authors = "";
+            for (Author author : stocks[position].Authors) {
+                if (authors.length() > 0)
+                    authors += "; ";
+                authors += author.Name;
+            }
 
-            holder.title.setText(stocks[position].getTitle());
-            holder.author.setText(stocks[position].getAuthor());
-            byte[] bytes = Base64.decode(stocks[position].getImageUrl(), Base64.DEFAULT);
-            holder.image.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+            holder.author.setText(authors);
+
             return convertView;
         }
     }
@@ -550,7 +563,7 @@ public class MainActivity extends Activity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            holder.author.setText(stocks[position].get_name());
+            holder.author.setText(stocks[position].Name);
             return convertView;
         }
     }
@@ -558,32 +571,20 @@ public class MainActivity extends Activity {
     private class JsonReadTask extends AsyncTask<String, Void, String> {
 
         private String type;
+
         @Override
         protected String doInBackground(String... params) {
-            if (params[1]!=null)
+            if (params[1] != null)
                 type = params[1];
             if (URLUtil.isValidUrl(params[0])) {
-                final HttpClient client = new DefaultHttpClient();
-                final HttpGet getRequest = new HttpGet(params[0]);
+                InputStream inputStream = null;
                 try {
-                    HttpResponse response = client.execute(getRequest);
-                    final HttpEntity httpentity = response.getEntity();
-                    if (httpentity != null){
-                        InputStream inputStream = null;
-                        try {
-                            inputStream = httpentity.getContent();
-                            jsonResult = strFromStream(inputStream);
-                            Log.i("", jsonResult);
-                            return jsonResult;
-                        } catch (IllegalArgumentException e) {
-                            //
-                        } finally {
-                            httpentity.consumeContent();
-                        }
-                    }
-                } catch (ClientProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                    inputStream = new URL(params[0]).openStream();
+                    jsonResult = strFromStream(inputStream);
+                    Log.i("", jsonResult);
+                    return jsonResult;
+                } catch (Exception e) {
+                    Log.e("Error", e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -602,72 +603,39 @@ public class MainActivity extends Activity {
     // build hash set for list view
     public void ListDrawer(String type) {
         if (type.equals("Ebook")) {
-            try {
-                if (jsonResult != null) {
-                    JSONObject jsonResponse = new JSONObject(jsonResult);
-                    JSONArray jsonMainNode = jsonResponse.optJSONArray("ebook");
-                    Vector<Ebook> vstocks = new Vector<Ebook>();
-                    for (int i = 0; i < jsonMainNode.length(); i++) {
-                        JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                        Ebook ebook = new Ebook();
-                        ebook.setId(Integer.parseInt(jsonChildNode.optString("id")));
-                        ebook.setTitle(jsonChildNode.optString("title"));
-                        ebook.setAuthor(jsonChildNode.optString("author"));
-                        ebook.setImageUrl(jsonChildNode.getString("imageUrl"));
-                        ebook.setDescription(jsonChildNode.getString("description"));
-                        ebook.setEbookUrl(jsonChildNode.getString("ebookUrl"));
-                        Log.i("StockLog", ebook.getTitle() + ebook.getAuthor() + ebook.getImageUrl());
-                        vstocks.add(ebook);
-                    }
-                    Ebook[] ebooks = new Ebook[jsonMainNode.length()];
 
-                    int stockscount = jsonMainNode.length();
-                    for (int n = 0; n < stockscount; n++) {
-                        ebooks[n] = vstocks.get(n);
-                    }
-                    ebookAdapter.setStockList(ebooks);
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(ebookAdapter);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error; jsonResult null",
-                            Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Error" + e.toString(),
+            if (jsonResult != null) {
+                Gson gson = new Gson();
+                Type ebookListType = new TypeToken<List<Ebook>>() {
+                }.getType();
+                List<Ebook> ebookList = gson.fromJson(jsonResult, ebookListType);
+                Ebook ebooks[] = new Ebook[ebookList.size()];
+                ebookList.toArray(ebooks);
+                ebookAdapter.setStockList(ebooks);
+                ListView listView = (ListView) findViewById(R.id.listView);
+                listView.setAdapter(ebookAdapter);
+            } else {
+                Toast.makeText(getApplicationContext(), "Error; jsonResult null",
                         Toast.LENGTH_SHORT).show();
             }
         }
         if (type.equals("Author")) {
-            try {
-                if (jsonResult != null) {
-                    JSONObject jsonResponse = new JSONObject(jsonResult);
-                    JSONArray jsonMainNode = jsonResponse.optJSONArray("author");
-                    Vector<Author> vstocks = new Vector<Author>();
-                    for (int i = 0; i < jsonMainNode.length(); i++) {
-                        JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                        Author author = new Author();
-                        author.set_name(jsonChildNode.getString("name"));
-                        author.set_id(Integer.parseInt(jsonChildNode.getString("id")));
 
-                        vstocks.add(author);
-                    }
-                    Author[] authors = new Author[jsonMainNode.length()];
-
-                    int stockscount = jsonMainNode.length();
-                    for (int n = 0; n < stockscount; n++) {
-                        authors[n] = vstocks.get(n);
-                    }
-                    authorAdapter.setStockList(authors);
-                    ListView listView = (ListView) findViewById(R.id.listView);
-                    listView.setAdapter(authorAdapter);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error; jsonResult null",
-                            Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Error" + e.toString(),
+            if (jsonResult != null) {
+                Gson gson = new Gson();
+                Type fooType = new TypeToken<List<Author>>() {
+                }.getType();
+                List<Author> authorList = gson.fromJson(jsonResult, fooType);
+                Author authors[] = new Author[authorList.size()];
+                authorList.toArray(authors);
+                authorAdapter.setStockList(authors);
+                ListView listView = (ListView) findViewById(R.id.listView);
+                listView.setAdapter(authorAdapter);
+            } else {
+                Toast.makeText(getApplicationContext(), "Error; jsonResult null",
                         Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 }
