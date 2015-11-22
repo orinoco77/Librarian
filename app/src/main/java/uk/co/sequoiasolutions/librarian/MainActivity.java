@@ -498,7 +498,7 @@ public class MainActivity extends Activity {
             for (Author author : stocks[position].Authors) {
                 if (authors.length() > 0)
                     authors += "; ";
-                authors += author.Name;
+                authors += author.Forename + " " + author.Surname;
             }
 
             holder.author.setText(authors);
@@ -563,7 +563,7 @@ public class MainActivity extends Activity {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            holder.author.setText(stocks[position].Name);
+            holder.author.setText(stocks[position].Forename + " " + stocks[position].Surname);
             return convertView;
         }
     }

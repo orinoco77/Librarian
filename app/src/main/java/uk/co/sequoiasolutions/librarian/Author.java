@@ -5,5 +5,6 @@ package uk.co.sequoiasolutions.librarian;
  */
 public class Author {
     public int Id;
-    public String Name;
+    public String Forename;
+    public String Surname;
 }
