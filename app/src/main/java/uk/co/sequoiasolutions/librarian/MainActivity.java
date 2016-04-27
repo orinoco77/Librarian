@@ -66,6 +66,7 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -334,7 +335,15 @@ public class MainActivity extends Activity {
             super.onPostExecute(result);
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(new File(downloadedFile)), "application/epub+zip");
-            startActivity(intent);
+            try {
+                startActivity(intent);
+            }
+            catch (Exception e)
+            {
+                Log.e("Error: ", e.getMessage());
+                Toast.makeText(getApplicationContext(), "Could not find an ebook reader app to open this book",
+                        Toast.LENGTH_LONG).show();
+            }
         }
 
         /**
@@ -609,14 +618,15 @@ public class MainActivity extends Activity {
                 Type ebookListType = new TypeToken<List<Ebook>>() {
                 }.getType();
                 List<Ebook> ebookList = gson.fromJson(jsonResult, ebookListType);
+                Collections.sort(ebookList);
                 Ebook ebooks[] = new Ebook[ebookList.size()];
                 ebookList.toArray(ebooks);
                 ebookAdapter.setStockList(ebooks);
                 ListView listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(ebookAdapter);
             } else {
-                Toast.makeText(getApplicationContext(), "Error; jsonResult null",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Could not connect to server, please check settings",
+                        Toast.LENGTH_LONG).show();
             }
         }
         if (type.equals("Author")) {
@@ -626,14 +636,15 @@ public class MainActivity extends Activity {
                 Type fooType = new TypeToken<List<Author>>() {
                 }.getType();
                 List<Author> authorList = gson.fromJson(jsonResult, fooType);
+                Collections.sort(authorList);
                 Author authors[] = new Author[authorList.size()];
                 authorList.toArray(authors);
                 authorAdapter.setStockList(authors);
                 ListView listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(authorAdapter);
             } else {
-                Toast.makeText(getApplicationContext(), "Error; jsonResult null",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Could not connect to server, please check settings",
+                        Toast.LENGTH_LONG).show();
             }
 
         }
